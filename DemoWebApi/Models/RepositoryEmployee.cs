@@ -66,9 +66,9 @@ namespace DemoWebApi.Models
         }
         public int DeleteEmployee(int id)
         {
-            Employee emp = _context.Employees.Find(id);
-            _context.Employees.Remove(emp);
-            return _context.SaveChanges();
+            //Employee emp = _context.Employees.Find(id);
+            //_context.Employees.Remove(emp);
+            //return _context.SaveChanges();
 
             /*Employee empToDelete = _context.Employees.Find(id);
             EntityState es = EntityState.Detached;
@@ -91,6 +91,22 @@ namespace DemoWebApi.Models
             {
                 _employees.Remove(employeeToRemove);
             }*/
+
+
+            Employee employeetodelete = _context.Employees.FirstOrDefault(e => e.EmployeeId == id);
+            if (employeetodelete != null)
+            {
+                _context.Employees.Remove(employeetodelete);
+                _context.SaveChanges();
+
+
+
+            }
+            else
+            {
+                return 0;
+            }
+            return 1;
         }
         public IEnumerable<EmpViewModel> Lister(List<Employee> employees)
         {
